@@ -1,21 +1,31 @@
-# Studio Presentation Mockup
+# Three Brands — Landing Page Showcase
 
-A high-end, Swiss-inspired presentation built with **Next.js (App Router)**,
-**Tailwind CSS v4**, and **Framer Motion**. A minimal preloader fetches all
-imagery from the **Gemini API (Imagen)**, then reveals three full-viewport
-landing pages that auto-scroll sequentially.
+A cinematic landing-page reel built with **Next.js (App Router)**,
+**Tailwind CSS v4**, and **Framer Motion**. A Fraunces-set loader gates on
+imagery generated via the **Gemini API (Imagen)**, then a curtain lifts onto
+three full-viewport brand pages that auto-advance on a timed reel.
+
+## The three brands
+
+| Page | Brand | Industry | Identity |
+| --- | --- | --- | --- |
+| 01 | **Maison Véra** | Interior architecture | Forest green / cream / brass, Fraunces editorial serif |
+| 02 | **Pennine Roofing Co.** | Greater Manchester roofers | Stone ground, Anton industrial headline, signal orange, self-drawing roofline |
+| 03 | **Ashcroft & Gray** | London solicitors | Deep navy / parchment / old gold, Playfair Display, gold-ruled practice index |
 
 ## Flow
 
-1. **Preloader** — a 0–100 counter and hairline progress bar track the real
-   image-generation promises. The generated glass-texture background fades in
-   behind the counter as soon as it resolves. The screen fades out only after
-   every request has settled.
-2. **Page 1 — Aura Spatial** (interior architecture) appears. After 4 seconds
-   the window smooth-scrolls to **Page 2 — Apex Heritage Elevations** (UK
-   roofing), and 4 seconds later to **Page 3 — Vanguard Legal Partners**
-   (solicitors).
-3. Each section's text and UI stagger-fade up as it enters the viewport.
+1. **Loader** — an oversized 0–100 counter and gold hairline bar track the
+   real image-generation promises; the generated glass texture ghosts in
+   behind. It lifts only after every request settles.
+2. **Curtain reveal** — page 1 arms beneath a curtain that rises into the
+   live reel.
+3. **Autoplay reel** — each page dwells ~6.8s (segmented progress bar up
+   top), then the track glides to the next, looping. Staggered line-mask and
+   fade-up reveals replay on every entrance.
+4. **Full control chrome** — right-rail dots, play/pause, page counter,
+   wheel / arrow-key / touch-swipe navigation, `prefers-reduced-motion`
+   respected.
 
 ## Setup
 
@@ -26,7 +36,8 @@ npm run dev
 ```
 
 If `NEXT_PUBLIC_GEMINI_API_KEY` is missing or any generation request fails,
-the site falls back to neutral slate-grey placeholders and remains fully
+each panel falls back to a designed placeholder (Maison Véra's arched
+plaster light-cast, tonal gradients elsewhere) and the site remains fully
 functional.
 
 > **Security note:** `NEXT_PUBLIC_` variables ship in the client bundle, so
@@ -38,17 +49,16 @@ functional.
 
 ```
 app/
-  layout.tsx                 # Inter font, global shell
-  page.tsx                   # Orchestrator: load → preloader exit → auto-scroll
-  globals.css                # Tailwind v4 + design tokens
+  layout.tsx                 # Inter, Manrope, Fraunces, Playfair, Anton
+  page.tsx                   # Reel state machine: load → curtain → autoplay
+  globals.css                # Brand systems, reveal choreography, chrome
 components/
-  Preloader.tsx              # Counter + progress line, liquid-glass veil
-  SectionImage.tsx           # Image surface with slate-gradient fallback
-  sections/
-    AuraSpatial.tsx          # Page 1 — interior design studio
-    ApexHeritage.tsx         # Page 2 — UK roofing, full-bleed imagery
-    VanguardLegal.tsx        # Page 3 — solicitors
+  Loader.tsx                 # 0–100 counter gated on real API progress
+  Chrome.tsx                 # Progress segments, rail, play/pause, counter
+  panels/
+    MaisonVera.tsx           # Page 1 — interior architecture
+    PennineRoofing.tsx       # Page 2 — roofers, self-drawing roofline
+    AshcroftGray.tsx         # Page 3 — solicitors, practice index
 lib/
   imageService.ts            # Google Gen AI client + Imagen asset loading
-  animations.ts              # Shared easing, stagger, and reveal variants
 ```

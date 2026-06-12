@@ -1,24 +1,997 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+:root {
+  --ease: cubic-bezier(0.7, 0, 0.2, 1);
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html {
-  scroll-behavior: smooth;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
+html,
 body {
-  background-color: #f7f7f6;
-  color: #171717;
-  font-family: var(--font-sans);
+  height: 100%;
+}
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background: #0b0b0c;
+  color: #fff;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-
 ::selection {
-  background: #d4d4d4;
-  color: #171717;
+  background: #c9a86a;
+  color: #14201b;
+}
+
+/* ---------- grain ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+/* ===================== REEL ===================== */
+.reel {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+.track {
+  height: 100%;
+  will-change: transform;
+}
+.panel {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 4.2vw, 64px);
+  overflow: hidden;
+}
+.panel__inner {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+/* ----- shared topbar ----- */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.wordmark {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-size: clamp(15px, 1.35vw, 19px);
+  white-space: nowrap;
+}
+.nav {
+  display: flex;
+  gap: clamp(18px, 2vw, 34px);
+  align-items: center;
+}
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.nav a:hover {
+  opacity: 1;
+}
+.top-cta {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 11px 20px;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.25s var(--reveal-ease), opacity 0.3s;
+}
+.top-cta:hover {
+  transform: translateY(-2px);
+}
+
+/* ----- hero middle area ----- */
+.hero {
+  align-self: center;
+  display: grid;
+  align-items: center;
+  gap: clamp(36px, 5vw, 80px);
+  padding: clamp(20px, 4vh, 48px) 0;
+}
+.eyebrow {
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+h1 {
+  font-weight: 400;
+  line-height: 0.98;
+  margin: 0;
+}
+.sub {
+  max-width: 46ch;
+  line-height: 1.6;
+  font-size: clamp(14px, 1.15vw, 17px);
+}
+.cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  padding: 15px 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: transform 0.3s var(--reveal-ease), background 0.3s, color 0.3s,
+    border-color 0.3s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn .arr {
+  transition: transform 0.3s var(--reveal-ease);
+}
+.btn:hover .arr {
+  transform: translateX(4px);
+}
+
+/* ----- bottom meta strip ----- */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.meta-list {
+  display: flex;
+  gap: clamp(16px, 2.4vw, 40px);
+  flex-wrap: wrap;
+}
+.meta-list span {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.78;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.meta-list span + span::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  margin-right: 11px;
+  margin-left: -11px;
+}
+
+/* ===================== REVEAL ANIMATIONS ===================== */
+.rv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s var(--reveal-ease), transform 0.9s var(--reveal-ease);
+}
+.panel.is-active .rv {
+  opacity: 1;
+  transform: none;
+}
+.line {
+  display: block;
+  overflow: hidden;
+}
+.line > span {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s var(--reveal-ease);
+}
+.panel.is-active .line > span {
+  transform: none;
+}
+.panel.is-active [data-d="1"] {
+  transition-delay: 0.18s;
+}
+.panel.is-active [data-d="2"] {
+  transition-delay: 0.3s;
+}
+.panel.is-active [data-d="3"] {
+  transition-delay: 0.42s;
+}
+.panel.is-active [data-d="4"] {
+  transition-delay: 0.54s;
+}
+.panel.is-active [data-d="5"] {
+  transition-delay: 0.66s;
+}
+.panel.is-active [data-d="6"] {
+  transition-delay: 0.78s;
+}
+
+/* =================================================================
+   PANEL 1 — MAISON VÉRA  (interior architecture)
+================================================================= */
+.p-decor {
+  background: #14201b;
+  color: #e9e2d3;
+}
+.p-decor .top-cta {
+  background: #e9e2d3;
+  color: #14201b;
+}
+.p-decor .hero {
+  grid-template-columns: 1.05fr 0.95fr;
+}
+.p-decor h1 {
+  font-family: var(--font-fraunces), serif;
+  font-size: clamp(44px, 6.3vw, 104px);
+  letter-spacing: -0.015em;
+  font-weight: 330;
+}
+.p-decor h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: #c9a86a;
+}
+.p-decor .sub {
+  color: #a9b1a4;
+}
+.p-decor .btn.primary {
+  background: #e9e2d3;
+  color: #14201b;
+}
+.p-decor .btn.ghost {
+  background: transparent;
+  color: #e9e2d3;
+  border-color: rgba(233, 226, 211, 0.28);
+}
+.p-decor .btn.ghost:hover {
+  border-color: #c9a86a;
+  color: #c9a86a;
+}
+.p-decor .eyebrow {
+  color: #c9a86a;
+}
+.p-decor .meta-list span {
+  color: #a9b1a4;
+}
+/* signature: lit plaster panel with an arched cast of light — also the
+   frame for the generated interior image when the API resolves */
+.plaster {
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(240px, 46vh, 560px);
+  border-radius: 3px;
+  overflow: hidden;
+  background: radial-gradient(
+      120% 80% at 72% -10%,
+      rgba(242, 230, 200, 0.85),
+      rgba(242, 230, 200, 0) 58%
+    ),
+    linear-gradient(160deg, #efe9da, #d9cfb8 70%, #c5b89c);
+  box-shadow: inset 0 0 120px rgba(20, 32, 27, 0.22);
+}
+.plaster .arch {
+  position: absolute;
+  left: 50%;
+  top: 14%;
+  width: 46%;
+  height: 86%;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    rgba(255, 250, 235, 0.9),
+    rgba(255, 247, 225, 0.15) 70%,
+    transparent
+  );
+  box-shadow: 0 30px 80px rgba(201, 168, 106, 0.25);
+}
+.plaster .floorline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  height: 1px;
+  background: rgba(20, 32, 27, 0.18);
+}
+.plaster .pimg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.plaster .cap {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  color: #f0ead8;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(20, 32, 27, 0.45);
+  padding: 7px 12px;
+  border-radius: 3px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.plaster .cap.flat {
+  color: #5b5640;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
+  left: 22px;
+  bottom: 18px;
+}
+
+/* =================================================================
+   PANEL 2 — PENNINE ROOFING CO.  (Greater Manchester roofers)
+================================================================= */
+.p-roof {
+  background: #e7e4de;
+  color: #16181a;
+  font-family: var(--font-manrope), sans-serif;
+}
+.p-roof .nav a {
+  font-weight: 600;
+}
+.p-roof .top-cta {
+  background: #16181a;
+  color: #fff;
+  font-weight: 700;
+}
+.p-roof .est {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.55;
+}
+.p-roof .hero {
+  grid-template-columns: 1fr;
+  gap: clamp(26px, 3vw, 42px);
+}
+.p-roof .hero.has-img {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+.p-roof .eyebrow {
+  color: #c2491a;
+  font-weight: 700;
+}
+.p-roof h1 {
+  font-family: var(--font-anton), sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(46px, 8.6vw, 150px);
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  max-width: 14ch;
+}
+.p-roof .hero.has-img h1 {
+  font-size: clamp(42px, 5.6vw, 104px);
+}
+.p-roof h1 .hl {
+  color: #e8541e;
+}
+.p-roof .sub {
+  color: #3a3d40;
+  font-weight: 500;
+}
+.p-roof .btn.primary {
+  background: #e8541e;
+  color: #fff;
+  font-weight: 700;
+}
+.p-roof .btn.primary:hover {
+  background: #16181a;
+}
+.p-roof .btn.ghost {
+  background: transparent;
+  color: #16181a;
+  border-color: rgba(22, 24, 26, 0.25);
+  font-weight: 700;
+}
+.p-roof .btn.ghost:hover {
+  border-color: #16181a;
+}
+.p-roof .stats {
+  display: flex;
+  gap: clamp(20px, 3.4vw, 60px);
+  flex-wrap: wrap;
+}
+.p-roof .stat .n {
+  font-family: var(--font-anton), sans-serif;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.p-roof .stat .l {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.55;
+  margin-top: 8px;
+}
+.p-roof .meta-list span {
+  font-weight: 600;
+}
+/* generated roofing photograph */
+.roofimg {
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(240px, 44vh, 540px);
+  border-radius: 4px;
+  overflow: hidden;
+  background: linear-gradient(165deg, #5c636b, #3a4047 65%, #23272c);
+  box-shadow: 0 24px 70px rgba(22, 24, 26, 0.22);
+}
+.roofimg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.roofimg .cap {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: rgba(22, 24, 26, 0.55);
+  padding: 7px 12px;
+  border-radius: 3px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* signature: amber roofline that draws across the foot of the page */
+.roofline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  z-index: 2;
+  pointer-events: none;
+}
+.roofline svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.roofline path {
+  fill: none;
+  stroke: #e8541e;
+  stroke-width: 3;
+  stroke-dasharray: 2600;
+  stroke-dashoffset: 2600;
+  transition: stroke-dashoffset 1.6s var(--reveal-ease) 0.5s;
+}
+.panel.is-active .roofline path {
+  stroke-dashoffset: 0;
+}
+
+/* =================================================================
+   PANEL 3 — ASHCROFT & GRAY  (London solicitors)
+================================================================= */
+.p-law {
+  background: #0e1b30;
+  color: #f4f1e9;
+}
+.p-law .wordmark {
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: clamp(17px, 1.5vw, 22px);
+}
+.p-law .top-cta {
+  background: transparent;
+  color: #c8a868;
+  border: 1px solid rgba(184, 153, 91, 0.5);
+}
+.p-law .top-cta:hover {
+  background: #b8995b;
+  color: #0e1b30;
+  border-color: #b8995b;
+}
+.p-law .hero {
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: start;
+}
+.p-law .eyebrow {
+  color: #b8995b;
+}
+.p-law h1 {
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(38px, 5.2vw, 82px);
+  line-height: 1.04;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.p-law h1 em {
+  font-style: italic;
+  color: #c8a868;
+  font-weight: 500;
+  position: relative;
+}
+.p-law .sub {
+  color: #9aa6b8;
+}
+.p-law .btn.primary {
+  background: #b8995b;
+  color: #0e1b30;
+}
+.p-law .btn.primary:hover {
+  background: #c8a868;
+}
+.p-law .btn.ghost {
+  background: transparent;
+  color: #f4f1e9;
+  border-color: rgba(244, 241, 233, 0.22);
+}
+.p-law .btn.ghost:hover {
+  border-color: #b8995b;
+  color: #c8a868;
+}
+.p-law .aside {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 26px;
+}
+/* generated detail photograph above the practice list */
+.lawimg {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(184, 153, 91, 0.35);
+  background: linear-gradient(160deg, #1a2a45, #0e1b30 70%);
+}
+.lawimg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.p-law .practice {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.p-law .practice .pa {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(184, 153, 91, 0.22);
+}
+.p-law .practice .pa:last-child {
+  border-bottom: 1px solid rgba(184, 153, 91, 0.22);
+}
+.p-law .practice .pa .idx {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #b8995b;
+  font-weight: 600;
+  font-family: var(--font-inter), sans-serif;
+  min-width: 26px;
+}
+.p-law .practice .pa .nm {
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(16px, 1.5vw, 21px);
+}
+.p-law .practice .pa .meta-sm {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7e8ba0;
+  font-weight: 500;
+}
+.p-law .meta-list span {
+  color: #9aa6b8;
+}
+
+/* ===================== CHROME (overlay UI) ===================== */
+.tone {
+  color: #fff;
+  transition: color 0.6s ease;
+}
+body.tone-light .tone {
+  color: #16181a;
+}
+
+/* top progress segments */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  display: flex;
+  gap: 5px;
+  padding: 0 clamp(22px, 4.2vw, 64px);
+  z-index: 65;
+}
+.progress .seg {
+  flex: 1;
+  height: 3px;
+  background: rgba(127, 127, 127, 0.28);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.progress .seg .fill {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: currentColor;
+  color: #e8541e;
+}
+body.tone-light .progress .seg {
+  background: rgba(22, 24, 26, 0.18);
+}
+/* accent of fill follows active panel */
+.progress.acc-decor .seg .fill {
+  color: #c9a86a;
+}
+.progress.acc-roof .seg .fill {
+  color: #e8541e;
+}
+.progress.acc-law .seg .fill {
+  color: #b8995b;
+}
+
+/* right rail dots */
+.rail {
+  position: fixed;
+  right: clamp(16px, 2vw, 30px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 66;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  pointer-events: auto;
+}
+.rail button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+  color: inherit;
+  opacity: 0.5;
+  transition: opacity 0.3s, color 0.6s;
+  padding: 4px 0;
+  font-family: var(--font-inter), sans-serif;
+}
+.rail button .rlabel {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+.rail button .rdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  transition: all 0.3s;
+}
+.rail button:hover {
+  opacity: 0.95;
+}
+.rail button:hover .rlabel {
+  opacity: 0.8;
+  transform: none;
+}
+.rail button.on {
+  opacity: 1;
+}
+.rail button.on .rdot {
+  background: currentColor;
+  box-shadow: 0 0 0 4px rgba(127, 127, 127, 0.18);
+}
+.rail button.on .rlabel {
+  opacity: 1;
+  transform: none;
+}
+
+/* bottom-left autoplay control */
+.controls {
+  position: fixed;
+  left: clamp(22px, 4.2vw, 64px);
+  bottom: clamp(20px, 3.4vh, 40px);
+  z-index: 66;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: auto;
+}
+.pp {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: rgba(127, 127, 127, 0.06);
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s, background 0.3s;
+}
+.pp:hover {
+  transform: scale(1.06);
+}
+.pp svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+.controls .lab {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* bottom-right counter */
+.counter {
+  position: fixed;
+  right: clamp(22px, 4.2vw, 64px);
+  bottom: clamp(20px, 3.4vh, 40px);
+  z-index: 66;
+  text-align: right;
+  pointer-events: none;
+}
+.counter .idx {
+  font-family: var(--font-fraunces), serif;
+  font-size: clamp(26px, 2.4vw, 38px);
+  line-height: 1;
+  font-weight: 400;
+}
+.counter .idx .tot {
+  font-size: 14px;
+  opacity: 0.5;
+}
+.counter .nm {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+
+/* keyboard / scroll hint */
+.hint {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(20px, 3.4vh, 40px);
+  transform: translateX(-50%);
+  z-index: 66;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.55;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+.hint.hide {
+  opacity: 0;
+}
+.hint .key {
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 2px 7px;
+  opacity: 0.8;
+}
+
+/* ===================== LOADER ===================== */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0b0b0c;
+  color: #e9e2d3;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.6s ease;
+}
+.loader .lbg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.16;
+}
+.loader .lwrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: min(90vw, 560px);
+}
+.loader .lk {
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+.loader .lnum {
+  font-family: var(--font-fraunces), serif;
+  font-size: clamp(72px, 13vw, 168px);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.loader .lbar {
+  height: 1px;
+  background: rgba(233, 226, 211, 0.18);
+  margin: 34px 0 16px;
+  position: relative;
+  overflow: hidden;
+}
+.loader .lbar i {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: #c9a86a;
+}
+.loader .lcap {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.45;
+}
+.loader.lift {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* curtain reveal of first panel */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: #14201b;
+  transform: translateY(0);
+  pointer-events: none;
+}
+.curtain.up {
+  transform: translateY(-100%);
+  transition: transform 1s var(--ease);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 880px) {
+  .nav {
+    display: none;
+  }
+  .p-decor .hero,
+  .p-law .hero,
+  .p-roof .hero.has-img {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .plaster,
+  .roofimg {
+    min-height: 230px;
+  }
+  .p-law .aside {
+    align-self: stretch;
+  }
+  .rail {
+    display: none;
+  }
+  .hint {
+    display: none;
+  }
+  .panel__inner {
+    grid-template-rows: auto 1fr auto;
+  }
+}
+@media (max-width: 560px) {
+  .meta-list {
+    gap: 14px;
+  }
+  .meta-list span + span::before {
+    display: none;
+  }
+  .meta-list span {
+    margin: 0;
+  }
+  .counter .nm {
+    display: none;
+  }
+  .top-cta {
+    padding: 9px 14px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv,
+  .line > span {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .roofline path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
 }
