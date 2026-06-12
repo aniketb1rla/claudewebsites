@@ -55,14 +55,49 @@ body {
   display: flex;
   flex-direction: column;
   padding: clamp(22px, 4.2vw, 64px);
-  overflow: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar styling per brand */
+.p-decor::-webkit-scrollbar {
+  width: 6px;
+}
+.p-decor::-webkit-scrollbar-track {
+  background: #14201b;
+}
+.p-decor::-webkit-scrollbar-thumb {
+  background: #c9a86a;
+  border-radius: 3px;
+}
+
+.p-roof::-webkit-scrollbar {
+  width: 6px;
+}
+.p-roof::-webkit-scrollbar-track {
+  background: #e7e4de;
+}
+.p-roof::-webkit-scrollbar-thumb {
+  background: #e8541e;
+  border-radius: 3px;
+}
+
+.p-law::-webkit-scrollbar {
+  width: 6px;
+}
+.p-law::-webkit-scrollbar-track {
+  background: #0e1b30;
+}
+.p-law::-webkit-scrollbar-thumb {
+  background: #b8995b;
+  border-radius: 3px;
 }
 .panel__inner {
   position: relative;
   z-index: 3;
   flex: 1;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1480px;
   margin: 0 auto;
@@ -123,6 +158,7 @@ body {
   align-items: center;
   gap: clamp(36px, 5vw, 80px);
   padding: clamp(20px, 4vh, 48px) 0;
+  min-height: calc(100vh - clamp(150px, 15vh, 200px));
 }
 .eyebrow {
   font-size: clamp(10px, 1vw, 12px);
@@ -993,5 +1029,223 @@ body.tone-light .progress .seg {
   .roofline path {
     transition: none;
     stroke-dashoffset: 0;
+  }
+}
+
+/* =================================================================
+   REDESIGN SUB-SECTIONS (Common Layout & Brand-Specific Overrides)
+================================================================= */
+
+.brand-section {
+  padding: clamp(80px, 12vh, 180px) 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vh, 80px);
+}
+
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+
+.grid-2col.reverse {
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+/* Text styles in sub-sections */
+.section-title {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.section-desc {
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 30px;
+}
+
+/* Maison Vera specific section styles */
+.p-decor .brand-section {
+  border-top: 1px solid rgba(233, 226, 211, 0.12);
+}
+.p-decor .section-title {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 300;
+}
+.p-decor .section-title em {
+  font-style: italic;
+  color: #c9a86a;
+}
+.p-decor .section-desc {
+  color: #a9b1a4;
+}
+
+/* Pennine Roofing specific section styles */
+.p-roof .brand-section {
+  border-top: 1px solid rgba(22, 24, 26, 0.1);
+}
+.p-roof .section-title {
+  font-family: var(--font-anton), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.p-roof .section-title span {
+  color: #e8541e;
+}
+.p-roof .section-desc {
+  color: #3a3d40;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+.service-card {
+  background: rgba(22, 24, 26, 0.03);
+  border: 1px solid rgba(22, 24, 26, 0.08);
+  padding: 30px;
+  border-radius: 6px;
+  transition: transform 0.3s var(--reveal-ease), border-color 0.3s;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: #e8541e;
+}
+.service-card .icon {
+  font-size: 28px;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+.service-card h3 {
+  font-family: var(--font-anton), sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: clamp(16px, 1.5vw, 22px);
+  margin-bottom: 12px;
+}
+.service-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5b6066;
+}
+
+/* Ashcroft & Gray specific section styles */
+.p-law .brand-section {
+  border-top: 1px solid rgba(184, 153, 91, 0.15);
+}
+.p-law .section-title {
+  font-family: var(--font-playfair), serif;
+  font-weight: 500;
+}
+.p-law .section-title em {
+  font-style: italic;
+  color: #c8a868;
+}
+.p-law .section-desc {
+  color: #9aa6b8;
+}
+
+/* Forms & Interactive elements */
+.contact-form-wrap {
+  width: 100%;
+  max-width: 580px;
+}
+.form-group {
+  margin-bottom: 24px;
+}
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Maison Vera minimal inputs */
+.p-decor input,
+.p-decor textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(233, 226, 211, 0.3);
+  padding: 12px 0;
+  color: #e9e2d3;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.p-decor input:focus,
+.p-decor textarea:focus {
+  border-color: #c9a86a;
+}
+
+/* Pennine Roofing bold inputs */
+.p-roof input,
+.p-roof textarea,
+.p-roof select {
+  width: 100%;
+  background: rgba(22, 24, 26, 0.04);
+  border: 1px solid rgba(22, 24, 26, 0.12);
+  padding: 14px 18px;
+  border-radius: 4px;
+  color: #16181a;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.p-roof input:focus,
+.p-roof textarea:focus,
+.p-roof select:focus {
+  border-color: #e8541e;
+  background: rgba(22, 24, 26, 0.02);
+}
+
+/* Ashcroft & Gray structured inputs */
+.p-law input,
+.p-law textarea,
+.p-law select {
+  width: 100%;
+  background: rgba(26, 42, 69, 0.4);
+  border: 1px solid rgba(184, 153, 91, 0.25);
+  padding: 14px 18px;
+  border-radius: 3px;
+  color: #f4f1e9;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.p-law input:focus,
+.p-law textarea:focus,
+.p-law select:focus {
+  border-color: #c8a868;
+  box-shadow: 0 0 8px rgba(200, 168, 104, 0.15);
+}
+
+/* Responsive Overrides */
+@media (max-width: 960px) {
+  .grid-2col,
+  .grid-2col.reverse {
+    grid-template-columns: 1fr !important;
+    gap: 40px;
+  }
+  .grid-2col.reverse > div:first-child {
+    order: 2;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .brand-section {
+    padding: clamp(60px, 8vh, 100px) 0;
   }
 }

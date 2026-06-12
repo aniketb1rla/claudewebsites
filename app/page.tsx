@@ -138,20 +138,65 @@ export default function Home() {
     if (phase !== "live") return;
 
     const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
+      const activePanelEl = document.querySelector(".panel.is-active");
+      if (!activePanelEl) return;
+
+      const scrollTop = activePanelEl.scrollTop;
+      const scrollHeight = activePanelEl.scrollHeight;
+      const clientHeight = activePanelEl.clientHeight;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 3;
+      const isAtTop = scrollTop <= 3;
+
       const now = Date.now();
-      if (now < coolRef.current) return;
-      if (Math.abs(e.deltaY) < 14) return;
-      coolRef.current = now + 850;
-      step(e.deltaY > 0 ? 1 : -1);
+      if (now < coolRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.deltaY > 0 && isAtBottom) {
+        if (indexRef.current < PANELS.length - 1) {
+          e.preventDefault();
+          coolRef.current = now + 1200;
+          step(1);
+        }
+      } else if (e.deltaY < 0 && isAtTop) {
+        if (indexRef.current > 0) {
+          e.preventDefault();
+          coolRef.current = now + 1200;
+          step(-1);
+        }
+      }
     };
     const onKey = (e: KeyboardEvent) => {
+      const activePanelEl = document.querySelector(".panel.is-active");
+      if (!activePanelEl) return;
+
+      const scrollTop = activePanelEl.scrollTop;
+      const scrollHeight = activePanelEl.scrollHeight;
+      const clientHeight = activePanelEl.clientHeight;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 3;
+      const isAtTop = scrollTop <= 3;
+
+      const now = Date.now();
+
       if (["ArrowDown", "PageDown"].includes(e.key)) {
-        e.preventDefault();
-        step(1);
+        if (isAtBottom) {
+          if (indexRef.current < PANELS.length - 1) {
+            e.preventDefault();
+            if (now < coolRef.current) return;
+            coolRef.current = now + 1200;
+            step(1);
+          }
+        }
       } else if (["ArrowUp", "PageUp"].includes(e.key)) {
-        e.preventDefault();
-        step(-1);
+        if (isAtTop) {
+          if (indexRef.current > 0) {
+            e.preventDefault();
+            if (now < coolRef.current) return;
+            coolRef.current = now + 1200;
+            step(-1);
+          }
+        }
       } else if (e.key === " ") {
         e.preventDefault();
         togglePlay();
@@ -166,8 +211,37 @@ export default function Home() {
     };
     const onTouchEnd = (e: TouchEvent) => {
       if (touchYRef.current === null) return;
+
+      const activePanelEl = document.querySelector(".panel.is-active");
+      if (!activePanelEl) return;
+
+      const scrollTop = activePanelEl.scrollTop;
+      const scrollHeight = activePanelEl.scrollHeight;
+      const clientHeight = activePanelEl.clientHeight;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 8;
+      const isAtTop = scrollTop <= 8;
+
       const dy = touchYRef.current - e.changedTouches[0].clientY;
-      if (Math.abs(dy) > 50) step(dy > 0 ? 1 : -1);
+      const now = Date.now();
+
+      if (Math.abs(dy) > 50) {
+        if (now < coolRef.current) {
+          touchYRef.current = null;
+          return;
+        }
+
+        if (dy > 0 && isAtBottom) {
+          if (indexRef.current < PANELS.length - 1) {
+            coolRef.current = now + 1200;
+            step(1);
+          }
+        } else if (dy < 0 && isAtTop) {
+          if (indexRef.current > 0) {
+            coolRef.current = now + 1200;
+            step(-1);
+          }
+        }
+      }
       touchYRef.current = null;
     };
 
@@ -215,14 +289,23 @@ export default function Home() {
           animate={{ y: `-${index * 100}vh` }}
           transition={{ duration: 1.15, ease: PAGE_EASE }}
         >
-          <MaisonVera active={armed && index === 0} imageSrc={assets.auraSpatial} />
+          <MaisonVera
+            active={armed && index === 0}
+            imageSrc={assets.auraSpatial}
+            studioImageSrc={assets.maisonStudio}
+            portfolioImageSrc={assets.maisonPortfolio}
+          />
           <PennineRoofing
             active={armed && index === 1}
             imageSrc={assets.apexHeritage}
+            servicesImageSrc={assets.roofingServices}
+            projectsImageSrc={assets.roofingProjects}
           />
           <AshcroftGray
             active={armed && index === 2}
             imageSrc={assets.vanguardLegal}
+            officeImageSrc={assets.lawOffice}
+            libraryImageSrc={assets.lawLibrary}
           />
         </motion.div>
       </div>

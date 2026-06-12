@@ -15,8 +15,14 @@ import { GoogleGenAI } from "@google/genai";
 export type AssetKey =
   | "preloader"
   | "auraSpatial"
+  | "maisonStudio"
+  | "maisonPortfolio"
   | "apexHeritage"
-  | "vanguardLegal";
+  | "roofingServices"
+  | "roofingProjects"
+  | "vanguardLegal"
+  | "lawOffice"
+  | "lawLibrary";
 
 export type AssetMap = Record<AssetKey, string | null>;
 
@@ -28,10 +34,22 @@ const PROMPTS: Record<AssetKey, string> = {
     "A cinematic, ultra-slow-motion macro shot of translucent, optical-grade glass elements shifting. Soft, diffused white light refracts gently, creating subtle, organic prism effects against a pure neutral gray void. The aesthetic is incredibly smooth, clean, and abstract, prioritizing texture, light, and negative space over defined objects. 8k resolution, photorealistic, liquid-glass texture.",
   auraSpatial:
     "High-end, architectural close-up of a minimalist living space corner. Focus on texture contrast: smooth, cold polished concrete meeting tactile, raw linen fabric in pale beige. Soft, natural light streams in from a hidden source, casting dramatic, sharp shadows that emphasize the negative space. Zero clutter. One single, understated piece of black ceramic art rests on a low shelf. Sophisticated, calm, museum-quality composition.",
+  maisonStudio:
+    "High-end minimalist architectural materials close-up: raw oak timber grain, tactile off-white linen fabric, and hand-applied textured clay plaster. Soft natural light casts gentle shadows, emphasizing rich textures. Clean, quiet, sophisticated, museum-quality.",
+  maisonPortfolio:
+    "Cinematic, luxurious residential interior. A minimalist kitchen with a polished travertine island, matte dark walnut cabinets, and a single brass faucet. Warm morning light streams through a window, highlighting soft steam rising from a cup. Sophisticated, cozy, architectural digest style.",
   apexHeritage:
     "A stark, modern architectural abstraction from the United Kingdom. The shot is an upward angle focused on the roofline where traditional, deep slate-grey roofing tiles meet a clean, sharp, brushed aluminum flashing against a moody, overcast British sky. Focus on the geometry and precision of the slate installation. The texture of the wet slate is highly detailed. Clean, industrial, authoritative, and structured.",
+  roofingServices:
+    "A close-up of high-quality dark grey roofing slate tiles being laid precisely in overlapping rows. Focus on the sharp geometry, clean lines, and detailed texture of the wet slate. Structured, professional, crisp architectural details.",
+  roofingProjects:
+    "Cinematic wide shot of a traditional stone cottage nestled in a green valley under a dramatic, moody British sky. The cottage features a newly restored, pristine slate roof that stands out with clean, dark lines. Professional architectural exterior photography.",
   vanguardLegal:
     "An ultra-minimalist, cinematic detail shot inside a premium, modern law firm in London. A heavy, matte charcoal-gray fountain pen rests precisely on a stack of high-gsm, textured off-white legal paper. The background is completely softly blurred (high depth of field), showing only the clean, sharp vertical lines of a glass and steel partition. The lighting is focused and serious. Absolute focus on precision, quality, and authority.",
+  lawOffice:
+    "Interior detail of a premium law firm office in London. A polished mahogany conference table reflecting warm light, with leather chairs. In the soft-focus background, clean vertical lines of a steel and glass partition. Sophisticated, serious, prestigious.",
+  lawLibrary:
+    "A luxurious, quiet private library corner. Rich dark wood bookshelves filled with antique leather-bound books. A classic banker's lamp with a green glass shade glows softly on a desk. Warm, prestigious, scholarly, quiet authority.",
 };
 
 const ASSET_KEYS = Object.keys(PROMPTS) as AssetKey[];
@@ -39,8 +57,14 @@ const ASSET_KEYS = Object.keys(PROMPTS) as AssetKey[];
 export const EMPTY_ASSETS: AssetMap = {
   preloader: null,
   auraSpatial: null,
+  maisonStudio: null,
+  maisonPortfolio: null,
   apexHeritage: null,
+  roofingServices: null,
+  roofingProjects: null,
   vanguardLegal: null,
+  lawOffice: null,
+  lawLibrary: null,
 };
 
 function getClient(): GoogleGenAI | null {

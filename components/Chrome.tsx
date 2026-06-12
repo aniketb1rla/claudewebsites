@@ -37,21 +37,6 @@ export default function Chrome({
 
   return (
     <>
-      <div className={`progress acc-${panels[index].key}`}>
-        {panels.map((p, k) => (
-          <div className="seg" key={p.key}>
-            {k === index ? (
-              <motion.i className="fill" style={{ width: activeWidth }} />
-            ) : (
-              <i
-                className="fill"
-                style={{ width: k < index ? "100%" : "0%" }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
       <div className="rail tone" aria-label="Landing pages">
         {panels.map((p, k) => (
           <button
@@ -64,34 +49,6 @@ export default function Chrome({
             <span className="rdot" />
           </button>
         ))}
-      </div>
-
-      <div className="controls tone">
-        <button
-          className="pp"
-          onClick={onTogglePlay}
-          aria-label={playing ? "Pause autoplay" : "Play autoplay"}
-        >
-          <svg viewBox="0 0 12 12">
-            {playing ? (
-              <>
-                <rect x="2" y="1.5" width="3" height="9" />
-                <rect x="7" y="1.5" width="3" height="9" />
-              </>
-            ) : (
-              <path d="M2.5 1.5 L10.5 6 L2.5 10.5 Z" />
-            )}
-          </svg>
-        </button>
-        <span className="lab">{playing ? "Autoplay" : "Paused"}</span>
-      </div>
-
-      <div className="counter tone">
-        <div className="idx">
-          <span>{String(index + 1).padStart(2, "0")}</span>{" "}
-          <span className="tot">/ {String(panels.length).padStart(2, "0")}</span>
-        </div>
-        <div className="nm">{panels[index].name}</div>
       </div>
 
       <div className={`hint tone ${hintHidden ? "hide" : ""}`}>

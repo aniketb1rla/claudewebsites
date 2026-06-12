@@ -1,18 +1,26 @@
 "use client";
 
+import SectionImage from "@/components/SectionImage";
+
 interface PanelProps {
   active: boolean;
   imageSrc: string | null;
+  servicesImageSrc: string | null;
+  projectsImageSrc: string | null;
 }
 
 /**
  * Panel 2 — Pennine Roofing Co., Greater Manchester roofers. Light stone
  * ground, industrial Anton headline, signal-orange accents, and the amber
- * roofline that draws itself across the foot of the page. The generated
- * slate photograph sits in the right column when it resolves; otherwise
- * the layout falls back to the original full-width composition.
+ * roofline that draws itself across the foot of the page. Expanded to 4
+ * rich scrollable sections: Hero, Services, Heritage, and Quote.
  */
-export default function PennineRoofing({ active, imageSrc }: PanelProps) {
+export default function PennineRoofing({
+  active,
+  imageSrc,
+  servicesImageSrc,
+  projectsImageSrc,
+}: PanelProps) {
   return (
     <section className={`panel p-roof ${active ? "is-active" : ""}`}>
       <div className="panel__inner">
@@ -30,6 +38,7 @@ export default function PennineRoofing({ active, imageSrc }: PanelProps) {
           </a>
         </header>
 
+        {/* 1. HERO SECTION */}
         <div className={`hero ${imageSrc ? "has-img" : ""}`}>
           <div>
             <div className="eyebrow rv" data-d="1">
@@ -88,7 +97,121 @@ export default function PennineRoofing({ active, imageSrc }: PanelProps) {
           )}
         </div>
 
-        <footer className="meta rv" data-d="6">
+        {/* 2. SERVICES SECTION */}
+        <div className="brand-section rv" data-d="4">
+          <div className="grid-2col">
+            <div>
+              <h2 className="section-title">
+                Pitched, flat &amp; <span>heritage</span> slate.
+              </h2>
+              <p className="section-desc">
+                We specialize in traditional slating, stone flagging, and high-performance flat roofing systems. Whether restoring a Victorian terrace or building a new commercial complex, our team delivers craftsmanship built to withstand the toughest Pennine winters.
+              </p>
+              <div className="services-grid">
+                <div className="service-card">
+                  <span className="icon">🏠</span>
+                  <h3>Pitched Slate</h3>
+                  <p>Traditional Welsh and stone slating, fully guaranteed for decades.</p>
+                </div>
+                <div className="service-card">
+                  <span className="icon">🛡️</span>
+                  <h3>Flat Roofs</h3>
+                  <p>High-performance single-ply membranes and glass-fiber installs.</p>
+                </div>
+                <div className="service-card">
+                  <span className="icon">⚙️</span>
+                  <h3>Leadwork</h3>
+                  <p>Precision lead flashing, valleys, and custom decorative details.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <SectionImage
+                src={servicesImageSrc}
+                alt="Roofing craftsmanship installing dark slate tiles"
+                className="aspect-[4/3] w-full shadow-[0_20px_60px_rgba(22,24,26,0.12)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* 3. HERITAGE PROJECTS SECTION */}
+        <div className="brand-section rv" data-d="5">
+          <div className="grid-2col reverse">
+            <div>
+              <SectionImage
+                src={projectsImageSrc}
+                alt="Restored cottage slate roof under dramatic skies"
+                className="aspect-[16/10] w-full shadow-[0_20px_60px_rgba(22,24,26,0.12)]"
+              />
+            </div>
+            <div>
+              <h2 className="section-title">
+                Heritage <span>restoration</span>.
+              </h2>
+              <p className="section-desc">
+                We are approved contractors for listed buildings and heritage properties. Sourcing reclaimed local stone and matching original laying patterns, we preserve architectural history while integrating modern breathable membranes and insulation.
+              </p>
+              <div className="cta-row" style={{ marginTop: 20 }}>
+                <a className="btn ghost" href="#">
+                  Case studies <span className="arr">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. GET A QUOTE SECTION */}
+        <div className="brand-section rv" data-d="6" style={{ paddingBottom: 100 }}>
+          <div className="grid-2col">
+            <div>
+              <h2 className="section-title">
+                Get a <span>free quote</span>.
+              </h2>
+              <p className="section-desc">
+                Need a quick repair or a complete reroof survey? Speak directly to our estimators. We provide full written quotes with no obligation and fixed pricing.
+              </p>
+              <div className="stats" style={{ marginTop: 40 }}>
+                <div className="stat">
+                  <div className="n" style={{ color: '#e8541e' }}>24 hr</div>
+                  <div className="l">Emergency callouts</div>
+                </div>
+                <div className="stat">
+                  <div className="n" style={{ color: '#e8541e' }}>100%</div>
+                  <div className="l">Fixed written quotes</div>
+                </div>
+              </div>
+            </div>
+            <div className="contact-form-wrap">
+              <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <div className="form-group">
+                  <label htmlFor="roof-name" style={{ color: '#16181a' }}>Your Name</label>
+                  <input type="text" id="roof-name" placeholder="Johnathan Clegg" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="roof-phone" style={{ color: '#16181a' }}>Phone Number</label>
+                  <input type="tel" id="roof-phone" placeholder="07700 900077" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="roof-service" style={{ color: '#16181a' }}>Service Required</label>
+                  <select id="roof-service" required>
+                    <option value="">Select a service...</option>
+                    <option value="repair">Roof Repair</option>
+                    <option value="reroof">Complete Reroof</option>
+                    <option value="flat">Flat Roof Installation</option>
+                    <option value="heritage">Heritage Slate Work</option>
+                    <option value="survey">Roof Survey / Inspection</option>
+                  </select>
+                </div>
+                <button type="submit" className="btn primary" style={{ alignSelf: 'flex-start', marginTop: 10 }}>
+                  Request Callback
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <footer className="meta rv" data-d="6" style={{ marginTop: 'auto', paddingTop: 40, paddingBottom: 20, borderTop: '1px solid rgba(22, 24, 26, 0.1)' }}>
           <div className="meta-list">
             <span>Fully insured</span>
             <span>25-year guarantee</span>
@@ -98,13 +221,6 @@ export default function PennineRoofing({ active, imageSrc }: PanelProps) {
             <span>Free roof survey</span>
           </div>
         </footer>
-      </div>
-
-      {/* signature roofline */}
-      <div className="roofline" aria-hidden="true">
-        <svg viewBox="0 0 1440 84" preserveAspectRatio="none">
-          <path d="M0,72 L160,30 L320,72 L480,22 L640,72 L800,30 L960,72 L1120,22 L1280,72 L1440,34" />
-        </svg>
       </div>
     </section>
   );
