@@ -52,6 +52,19 @@ const PROMPTS: Record<AssetKey, string> = {
     "A luxurious, quiet private library corner. Rich dark wood bookshelves filled with antique leather-bound books. A classic banker's lamp with a green glass shade glows softly on a desk. Warm, prestigious, scholarly, quiet authority.",
 };
 
+const STATIC_ASSETS: Record<AssetKey, string | null> = {
+  preloader: "/images/I-01.jpeg",
+  auraSpatial: "/images/I-01.jpeg",
+  maisonStudio: "/images/I-02.jpeg",
+  maisonPortfolio: "/images/I-03.jpeg",
+  apexHeritage: "/images/R-01.jpeg",
+  roofingServices: "/images/R-02.jpeg",
+  roofingProjects: "/images/R-03.jpeg",
+  vanguardLegal: "/images/S-01.jpeg",
+  lawOffice: "/images/S-02.jpeg",
+  lawLibrary: null,
+};
+
 const ASSET_KEYS = Object.keys(PROMPTS) as AssetKey[];
 
 export const EMPTY_ASSETS: AssetMap = {
@@ -128,31 +141,55 @@ async function generateImage(
 }
 
 /**
- * Generates every asset in parallel. Reports fractional progress (0–1) as
- * each request settles, and surfaces individual assets as soon as they
- * resolve so early arrivals (e.g. the preloader background) can be used
- * before the full set completes. Never rejects.
+ * Preloads every local asset in the browser. Reports fractional progress (0–1) as
+ * each image resolves or fails, updating the loader UI dynamically.
  */
 export async function loadAllAssets(
   onProgress?: (fraction: number) => void,
   onAsset?: (key: AssetKey, src: string | null) => void
 ): Promise<AssetMap> {
   const results: AssetMap = { ...EMPTY_ASSETS };
-  const ai = getClient();
-
-  if (!ai) {
-    onProgress?.(1);
-    return results;
-  }
-
+  const keys = Object.keys(STATIC_ASSETS) as AssetKey[];
   let settled = 0;
+
   await Promise.all(
-    ASSET_KEYS.map(async (key) => {
-      const src = await generateImage(ai, PROMPTS[key]);
-      results[key] = src;
-      settled += 1;
-      onAsset?.(key, src);
-      onProgress?.(settled / ASSET_KEYS.length);
+    keys.map((key) => {
+      return new Promise<void>((resolve) => {
+        const src = STATIC_ASSETS[key];
+        if (!src) {
+          settled += 1;
+          onAsset?.(key, null);
+          onProgress?.(settled / keys.length);
+          resolve();
+          return;
+        }
+
+        if (typeof window === "undefined") {
+          results[key] = src;
+          settled += 1;
+          onAsset?.(key, src);
+          onProgress?.(settled / keys.length);
+          resolve();
+          return;
+        }
+
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          results[key] = src;
+          settled += 1;
+          onAsset?.(key, src);
+          onProgress?.(settled / keys.length);
+          resolve();
+        };
+        img.onerror = () => {
+          results[key] = null;
+          settled += 1;
+          onAsset?.(key, null);
+          onProgress?.(settled / keys.length);
+          resolve();
+        };
+      });
     })
   );
 

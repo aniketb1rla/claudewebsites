@@ -39,8 +39,20 @@ export default function PennineRoofing({
         </header>
 
         {/* 1. HERO SECTION */}
-        <div className={`hero ${imageSrc ? "has-img" : ""}`}>
-          <div>
+        <div className={`hero ${imageSrc ? "has-bg-img" : ""}`}>
+          {imageSrc && (
+            <div className="hero-bg-wrap rv" data-d="3">
+              <img
+                src={imageSrc}
+                alt="Slate roofline meeting brushed aluminium against an overcast sky"
+                className="hero-bg-img"
+              />
+              <div className="hero-bg-overlay" />
+              <div className="cap">Heritage slate — Saddleworth</div>
+            </div>
+          )}
+
+          <div className="hero-content">
             <div className="eyebrow rv" data-d="1">
               Pitched · Flat · Heritage Slate — Greater Manchester
             </div>
@@ -85,16 +97,6 @@ export default function PennineRoofing({
               </div>
             </div>
           </div>
-
-          {imageSrc && (
-            <div className="roofimg rv" data-d="3">
-              <img
-                src={imageSrc}
-                alt="Slate roofline meeting brushed aluminium against an overcast sky"
-              />
-              <div className="cap">Heritage slate — Saddleworth</div>
-            </div>
-          )}
         </div>
 
         {/* 2. SERVICES SECTION */}
