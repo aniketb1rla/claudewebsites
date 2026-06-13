@@ -56,6 +56,7 @@ body {
   flex-direction: column;
   padding: clamp(22px, 4.2vw, 64px);
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
@@ -414,9 +415,6 @@ h1 {
 /* =================================================================
    PANEL 2 — PENNINE ROOFING CO.  (Greater Manchester roofers)
 ================================================================= */
-.panel.p-roof {
-  padding: 0;
-}
 .p-roof {
   background: #e7e4de;
   color: #16181a;
@@ -442,7 +440,6 @@ h1 {
   top: 0;
   left: 0;
   right: 0;
-  padding: clamp(22px, 4.2vw, 64px) clamp(22px, 4.2vw, 64px) 0;
   z-index: 10;
 }
 .p-roof .hero {
@@ -451,10 +448,13 @@ h1 {
 }
 .p-roof .hero.has-bg-img {
   position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: calc(clamp(22px, 4.2vw, 64px) + 120px) clamp(22px, 4.2vw, 64px) clamp(60px, 8vh, 120px);
+  padding: calc(clamp(22px, 4.2vw, 64px) + 120px) 0 clamp(60px, 8vh, 120px);
   height: 100vh;
   height: 100dvh;
   box-sizing: border-box;
@@ -491,9 +491,16 @@ h1 {
     );
   z-index: 2;
 }
-.p-roof .hero-content {
+.p-roof .hero-content-wrapper {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 clamp(22px, 4.2vw, 64px);
   position: relative;
   z-index: 3;
+  box-sizing: border-box;
+}
+.p-roof .hero-content {
   max-width: 65ch;
   text-align: left;
 }
@@ -574,10 +581,7 @@ h1 {
 .p-roof .meta-list span {
   font-weight: 600;
 }
-.p-roof .meta {
-  padding-left: clamp(22px, 4.2vw, 64px);
-  padding-right: clamp(22px, 4.2vw, 64px);
-}
+
 /* generated roofing photograph */
 .roofimg {
   position: relative;
@@ -1195,8 +1199,6 @@ body.tone-light .progress .seg {
 /* Pennine Roofing specific section styles */
 .p-roof .brand-section {
   border-top: 1px solid rgba(22, 24, 26, 0.1);
-  padding-left: clamp(22px, 4.2vw, 64px);
-  padding-right: clamp(22px, 4.2vw, 64px);
 }
 .p-roof .section-title {
   font-family: var(--font-anton), sans-serif;

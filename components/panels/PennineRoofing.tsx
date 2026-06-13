@@ -52,48 +52,50 @@ export default function PennineRoofing({
             </div>
           )}
 
-          <div className="hero-content">
-            <div className="eyebrow rv" data-d="1">
-              Pitched · Flat · Heritage Slate — Greater Manchester
-            </div>
-            <h1 style={{ margin: "18px 0 26px" }}>
-              <span className="line">
-                <span data-d="2">Roofs built to</span>
-              </span>
-              <span className="line">
-                <span data-d="3">
-                  <span className="hl">outlast</span> the
+          <div className="hero-content-wrapper">
+            <div className="hero-content">
+              <div className="eyebrow rv" data-d="1">
+                Pitched · Flat · Heritage Slate — Greater Manchester
+              </div>
+              <h1 style={{ margin: "18px 0 26px" }}>
+                <span className="line">
+                  <span data-d="2">Roofs built to</span>
                 </span>
-              </span>
-              <span className="line">
-                <span data-d="4">weather.</span>
-              </span>
-            </h1>
-            <p className="sub rv" data-d="4">
-              Reroofs, repairs and heritage slate across Manchester, Stockport
-              and the Pennine foothills. Fully insured, fixed written quotes,
-              and a 25-year workmanship guarantee on every job.
-            </p>
-            <div className="cta-row rv" data-d="5" style={{ margin: "30px 0 38px" }}>
-              <a className="btn primary" href="#">
-                Get a free quote
-              </a>
-              <a className="btn ghost" href="#">
-                See recent work <span className="arr">→</span>
-              </a>
-            </div>
-            <div className="stats rv" data-d="6">
-              <div className="stat">
-                <div className="n">4,200+</div>
-                <div className="l">Roofs completed</div>
+                <span className="line">
+                  <span data-d="3">
+                    <span className="hl">outlast</span> the
+                  </span>
+                </span>
+                <span className="line">
+                  <span data-d="4">weather.</span>
+                </span>
+              </h1>
+              <p className="sub rv" data-d="4">
+                Reroofs, repairs and heritage slate across Manchester, Stockport
+                and the Pennine foothills. Fully insured, fixed written quotes,
+                and a 25-year workmanship guarantee on every job.
+              </p>
+              <div className="cta-row rv" data-d="5" style={{ margin: "30px 0 38px" }}>
+                <a className="btn primary" href="#">
+                  Get a free quote
+                </a>
+                <a className="btn ghost" href="#">
+                  See recent work <span className="arr">→</span>
+                </a>
               </div>
-              <div className="stat">
-                <div className="n">38 yrs</div>
-                <div className="l">On the tools</div>
-              </div>
-              <div className="stat">
-                <div className="n">4.9★</div>
-                <div className="l">Checkatrade rated</div>
+              <div className="stats rv" data-d="6">
+                <div className="stat">
+                  <div className="n">4,200+</div>
+                  <div className="l">Roofs completed</div>
+                </div>
+                <div className="stat">
+                  <div className="n">38 yrs</div>
+                  <div className="l">On the tools</div>
+                </div>
+                <div className="stat">
+                  <div className="n">4.9★</div>
+                  <div className="l">Checkatrade rated</div>
+                </div>
               </div>
             </div>
           </div>
