@@ -50,6 +50,20 @@ export default function AshcroftGray({
               Solicitors · London
             </span>
           </div>
+          <nav className="nav">
+            <a className="rv" data-d="2" href="#">
+              Practice Areas
+            </a>
+            <a className="rv" data-d="3" href="#">
+              History
+            </a>
+            <a className="rv" data-d="4" href="#">
+              Partners
+            </a>
+            <a className="rv" data-d="5" href="#">
+              Consultation
+            </a>
+          </nav>
           <a className="top-cta rv" data-d="3" href="#">
             Request a callback
           </a>

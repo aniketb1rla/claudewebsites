@@ -435,87 +435,58 @@ h1 {
   font-weight: 700;
   opacity: 0.55;
 }
-.p-roof .top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
 .p-roof .hero {
   grid-template-columns: 1fr;
   gap: clamp(26px, 3vw, 42px);
 }
-.p-roof .hero.has-bg-img {
+.p-roof .hero.has-img {
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(30px, 4vw, 80px);
+}
+/* Pennine Roofing hero image on the right, no crop with smooth fade */
+.p-roof .roofimg {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: transparent;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  padding: calc(clamp(22px, 4.2vw, 64px) + 120px) 0 clamp(60px, 8vh, 120px);
-  height: 100vh;
-  height: 100dvh;
-  box-sizing: border-box;
+  border-radius: 8px;
 }
-.p-roof .hero-bg-wrap {
-  position: absolute;
-  inset: 0;
+.p-roof .roofimg img {
   width: 100%;
   height: 100%;
+  object-fit: contain; /* DOES NOT CROP AT ALL */
   z-index: 1;
 }
-.p-roof .hero-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.p-roof .hero-bg-overlay {
+.p-roof .roofimg::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(
-      90deg,
-      rgba(231, 228, 222, 0.98) 0%,
-      rgba(231, 228, 222, 0.94) 35%,
-      rgba(231, 228, 222, 0.75) 60%,
-      rgba(231, 228, 222, 0.1) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(231, 228, 222, 0.8) 0%,
-      rgba(231, 228, 222, 0) 25%,
-      rgba(231, 228, 222, 0) 80%,
-      rgba(231, 228, 222, 1) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    #e7e4de 0%,
+    rgba(231, 228, 222, 0.8) 15%,
+    rgba(231, 228, 222, 0) 45%
+  );
+  pointer-events: none;
   z-index: 2;
 }
-.p-roof .hero-content-wrapper {
-  width: 100%;
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 clamp(22px, 4.2vw, 64px);
-  position: relative;
-  z-index: 3;
-  box-sizing: border-box;
-}
-.p-roof .hero-content {
-  max-width: 65ch;
-  text-align: left;
-}
-.p-roof .hero-bg-wrap .cap {
+.p-roof .roofimg .cap {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
+  left: 20px;
+  bottom: 16px;
   color: #fff;
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 700;
   background: rgba(22, 24, 26, 0.65);
-  padding: 7px 12px;
-  border-radius: 3px;
+  padding: 6px 10px;
+  border-radius: 2px;
   backdrop-filter: blur(8px);
   z-index: 3;
 }
@@ -527,13 +498,10 @@ h1 {
   font-family: var(--font-anton), sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(46px, 8.6vw, 150px);
-  line-height: 0.9;
+  font-size: clamp(32px, 5.2vw, 86px);
+  line-height: 0.95;
   letter-spacing: -0.005em;
   max-width: 14ch;
-}
-.p-roof .hero.has-bg-img h1 {
-  font-size: clamp(42px, 5.6vw, 104px);
 }
 .p-roof h1 .hl {
   color: #e8541e;
@@ -1080,19 +1048,17 @@ body.tone-light .progress .seg {
     display: none;
   }
   .p-decor .hero,
-  .p-law .hero {
+  .p-law .hero,
+  .p-roof .hero {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  .p-roof .hero.has-bg-img {
-    padding: calc(clamp(22px, 4.2vw, 64px) + 100px) clamp(22px, 4.2vw, 64px) clamp(50px, 6vh, 80px);
-  }
-  .p-roof .hero-bg-overlay {
+  .p-roof .roofimg::after {
     background: linear-gradient(
       180deg,
-      rgba(231, 228, 222, 0.98) 0%,
-      rgba(231, 228, 222, 0.94) 45%,
-      rgba(231, 228, 222, 0.75) 100%
+      #e7e4de 0%,
+      rgba(231, 228, 222, 0.8) 15%,
+      rgba(231, 228, 222, 0) 45%
     );
   }
   .plaster,

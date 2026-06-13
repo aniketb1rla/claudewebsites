@@ -37,19 +37,7 @@ export default function Chrome({
 
   return (
     <>
-      <div className="rail tone" aria-label="Landing pages">
-        {panels.map((p, k) => (
-          <button
-            key={p.key}
-            className={k === index ? "on" : ""}
-            aria-label={`Go to ${p.name}`}
-            onClick={() => onSelect(k)}
-          >
-            <span className="rlabel">{p.name}</span>
-            <span className="rdot" />
-          </button>
-        ))}
-      </div>
+      {/* Side navigation rail buttons removed */}
 
       <div className={`hint tone ${hintHidden ? "hide" : ""}`}>
         <span className="key">↑</span>
