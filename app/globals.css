@@ -265,6 +265,8 @@ h1 {
 .line {
   display: block;
   overflow: hidden;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 .line > span {
   display: block;
@@ -415,6 +417,9 @@ h1 {
 /* =================================================================
    PANEL 2 — PENNINE ROOFING CO.  (Greater Manchester roofers)
 ================================================================= */
+.panel.p-roof {
+  padding: 0;
+}
 .p-roof {
   background: #e7e4de;
   color: #16181a;
@@ -435,58 +440,83 @@ h1 {
   font-weight: 700;
   opacity: 0.55;
 }
+.p-roof .top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(22px, 4.2vw, 64px) clamp(22px, 4.2vw, 64px) 0;
+  z-index: 10;
+}
 .p-roof .hero {
   grid-template-columns: 1fr;
   gap: clamp(26px, 3vw, 42px);
 }
-.p-roof .hero.has-img {
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: clamp(30px, 4vw, 80px);
-}
-/* Pennine Roofing hero image on the right, no crop with smooth fade */
-.p-roof .roofimg {
+.p-roof .hero.has-bg-img {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  background: transparent;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border-radius: 8px;
+  padding: calc(clamp(22px, 4.2vw, 64px) + 120px) 0 clamp(60px, 8vh, 120px);
+  height: 100vh;
+  height: 100dvh;
+  box-sizing: border-box;
 }
-.p-roof .roofimg img {
+.p-roof .hero-bg-wrap {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* DOES NOT CROP AT ALL */
   z-index: 1;
 }
-.p-roof .roofimg::after {
-  content: "";
+.p-roof .hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+.p-roof .hero-bg-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
     #e7e4de 0%,
-    rgba(231, 228, 222, 0.8) 15%,
-    rgba(231, 228, 222, 0) 45%
+    #e7e4de 35%,
+    rgba(231, 228, 222, 0.9) 55%,
+    rgba(231, 228, 222, 0) 90%
   );
-  pointer-events: none;
   z-index: 2;
 }
-.p-roof .roofimg .cap {
+.p-roof .hero-content-wrapper {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 clamp(22px, 4.2vw, 64px);
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+}
+.p-roof .hero-content {
+  max-width: 65ch;
+  text-align: left;
+}
+.p-roof .hero-bg-wrap .cap {
   position: absolute;
-  left: 20px;
-  bottom: 16px;
+  right: clamp(22px, 4.2vw, 64px);
+  bottom: 24px;
   color: #fff;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 700;
   background: rgba(22, 24, 26, 0.65);
-  padding: 6px 10px;
-  border-radius: 2px;
+  padding: 7px 12px;
+  border-radius: 3px;
   backdrop-filter: blur(8px);
   z-index: 3;
 }
@@ -550,38 +580,7 @@ h1 {
   font-weight: 600;
 }
 
-/* generated roofing photograph */
-.roofimg {
-  position: relative;
-  align-self: stretch;
-  min-height: clamp(240px, 44vh, 540px);
-  border-radius: 4px;
-  overflow: hidden;
-  background: linear-gradient(165deg, #5c636b, #3a4047 65%, #23272c);
-  box-shadow: 0 24px 70px rgba(22, 24, 26, 0.22);
-}
-.roofimg img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.roofimg .cap {
-  position: absolute;
-  left: 16px;
-  bottom: 14px;
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
-  background: rgba(22, 24, 26, 0.55);
-  padding: 7px 12px;
-  border-radius: 3px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
+
 /* signature: amber roofline that draws across the foot of the page */
 .roofline {
   position: absolute;
@@ -638,7 +637,7 @@ h1 {
 }
 .p-law .hero.no-img {
   grid-template-columns: 1fr;
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
 }
@@ -1053,16 +1052,15 @@ body.tone-light .progress .seg {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  .p-roof .roofimg::after {
+  .p-roof .hero-bg-overlay {
     background: linear-gradient(
       180deg,
       #e7e4de 0%,
-      rgba(231, 228, 222, 0.8) 15%,
-      rgba(231, 228, 222, 0) 45%
+      rgba(231, 228, 222, 0.9) 50%,
+      rgba(231, 228, 222, 0.75) 100%
     );
   }
-  .plaster,
-  .roofimg {
+  .plaster {
     min-height: 230px;
   }
   .p-law .aside {
