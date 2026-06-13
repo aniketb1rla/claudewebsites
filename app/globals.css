@@ -434,6 +434,13 @@ h1 {
   font-weight: 700;
   opacity: 0.55;
 }
+.p-roof .top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
 .p-roof .hero {
   grid-template-columns: 1fr;
   gap: clamp(26px, 3vw, 42px);
@@ -443,10 +450,13 @@ h1 {
   display: flex;
   align-items: center;
   overflow: hidden;
-  border-radius: 20px;
-  padding: clamp(40px, 6vh, 90px) clamp(30px, 5vw, 70px);
-  box-shadow: 0 30px 80px rgba(22, 24, 26, 0.12);
-  border: 1px solid rgba(22, 24, 26, 0.05);
+  margin-top: calc(-1 * clamp(22px, 4.2vw, 64px));
+  margin-left: calc(-1 * clamp(22px, 4.2vw, 64px));
+  margin-right: calc(-1 * clamp(22px, 4.2vw, 64px));
+  padding: calc(clamp(22px, 4.2vw, 64px) + 120px) clamp(22px, 4.2vw, 64px) clamp(60px, 8vh, 120px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
 }
 .p-roof .hero-bg-wrap {
   position: absolute;
@@ -463,13 +473,21 @@ h1 {
 .p-roof .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(247, 245, 240, 0.98) 0%,
-    rgba(247, 245, 240, 0.92) 35%,
-    rgba(247, 245, 240, 0.75) 60%,
-    rgba(247, 245, 240, 0.1) 100%
-  );
+  background: 
+    linear-gradient(
+      90deg,
+      rgba(231, 228, 222, 0.98) 0%,
+      rgba(231, 228, 222, 0.94) 35%,
+      rgba(231, 228, 222, 0.75) 60%,
+      rgba(231, 228, 222, 0.1) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(231, 228, 222, 0.8) 0%,
+      rgba(231, 228, 222, 0) 25%,
+      rgba(231, 228, 222, 0) 80%,
+      rgba(231, 228, 222, 1) 100%
+    );
   z-index: 2;
 }
 .p-roof .hero-content {
@@ -481,7 +499,7 @@ h1 {
 .p-roof .hero-bg-wrap .cap {
   position: absolute;
   left: 24px;
-  bottom: 20px;
+  bottom: 24px;
   color: #fff;
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -644,6 +662,25 @@ h1 {
 .p-law .hero.no-img {
   grid-template-columns: 1fr;
   max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.p-law .hero.no-img .eyebrow {
+  justify-content: center;
+  gap: 14px;
+}
+.p-law .hero.no-img .eyebrow::after {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.p-law .hero.no-img .sub {
+  margin: 0 auto;
+}
+.p-law .hero.no-img .cta-row {
+  justify-content: center;
 }
 .p-law .eyebrow {
   color: #b8995b;
@@ -1039,14 +1076,14 @@ body.tone-light .progress .seg {
     gap: 30px;
   }
   .p-roof .hero.has-bg-img {
-    padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 30px);
+    padding: calc(clamp(22px, 4.2vw, 64px) + 100px) clamp(22px, 4.2vw, 64px) clamp(50px, 6vh, 80px);
   }
   .p-roof .hero-bg-overlay {
     background: linear-gradient(
       180deg,
-      rgba(247, 245, 240, 0.98) 0%,
-      rgba(247, 245, 240, 0.92) 45%,
-      rgba(247, 245, 240, 0.65) 100%
+      rgba(231, 228, 222, 0.98) 0%,
+      rgba(231, 228, 222, 0.94) 45%,
+      rgba(231, 228, 222, 0.75) 100%
     );
   }
   .plaster,
