@@ -56,7 +56,7 @@ export default function AshcroftGray({
         </header>
 
         {/* 1. HERO SECTION */}
-        <div className="hero">
+        <div className={`hero ${imageSrc ? "has-img" : "no-img"}`}>
           <div>
             <div className="eyebrow rv" data-d="1">
               Private Client · Corporate · Property · Disputes
@@ -89,16 +89,16 @@ export default function AshcroftGray({
             </div>
           </div>
 
-          <div className="aside">
-            {imageSrc && (
+          {imageSrc && (
+            <div className="aside">
               <div className="lawimg rv" data-d="3">
                 <img
                   src={imageSrc}
                   alt="Charcoal fountain pen resting on textured legal paper"
                 />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* 2. PRACTICE AREAS SECTION */}

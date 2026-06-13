@@ -60,9 +60,9 @@ const STATIC_ASSETS: Record<AssetKey, string | null> = {
   apexHeritage: "/images/R-01.jpeg",
   roofingServices: "/images/R-02.jpeg",
   roofingProjects: "/images/R-03.jpeg",
-  vanguardLegal: "/images/S-01.jpeg",
-  lawOffice: "/images/S-02.jpeg",
-  lawLibrary: null,
+  vanguardLegal: null,
+  lawOffice: "/images/S-01.jpeg",
+  lawLibrary: "/images/S-02.jpeg",
 };
 
 const ASSET_KEYS = Object.keys(PROMPTS) as AssetKey[];
