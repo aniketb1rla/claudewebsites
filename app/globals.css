@@ -13,14 +13,17 @@
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   font-family: var(--font-inter), system-ui, sans-serif;
   background: #0b0b0c;
   color: #fff;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  scroll-snap-type: y mandatory;
 }
 ::selection {
   background: #c9a86a;
@@ -39,25 +42,25 @@ body {
 
 /* ===================== REEL ===================== */
 .reel {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 .track {
-  height: 100%;
-  will-change: transform;
+  width: 100%;
 }
 .panel {
   position: relative;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: clamp(22px, 4.2vw, 64px);
-  overflow-y: auto;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+}
+.panel,
+.brand-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* Custom Scrollbar styling per brand */
@@ -258,7 +261,7 @@ h1 {
   transform: translateY(26px);
   transition: opacity 0.9s var(--reveal-ease), transform 0.9s var(--reveal-ease);
 }
-.panel.is-active .rv {
+.rv.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -273,25 +276,25 @@ h1 {
   transform: translateY(110%);
   transition: transform 1s var(--reveal-ease);
 }
-.panel.is-active .line > span {
+.line.is-visible > span {
   transform: none;
 }
-.panel.is-active [data-d="1"] {
+[data-d="1"] {
   transition-delay: 0.18s;
 }
-.panel.is-active [data-d="2"] {
+[data-d="2"] {
   transition-delay: 0.3s;
 }
-.panel.is-active [data-d="3"] {
+[data-d="3"] {
   transition-delay: 0.42s;
 }
-.panel.is-active [data-d="4"] {
+[data-d="4"] {
   transition-delay: 0.54s;
 }
-.panel.is-active [data-d="5"] {
+[data-d="5"] {
   transition-delay: 0.66s;
 }
-.panel.is-active [data-d="6"] {
+[data-d="6"] {
   transition-delay: 0.78s;
 }
 
@@ -454,9 +457,7 @@ h1 {
 }
 .p-roof .hero.has-bg-img {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   display: flex;
   align-items: center;
   overflow: hidden;
