@@ -63,21 +63,16 @@ export default function AshcroftGray({
             </div>
             <h1 style={{ margin: "24px 0 28px" }}>
               <span className="line">
-                <span data-d="2">Considered counsel</span>
+                <span data-d="2">Considered counsel for</span>
               </span>
               <span className="line">
                 <span data-d="3">
-                  for life&apos;s <em>defining</em>
+                  life&apos;s <em>defining</em> moments.
                 </span>
               </span>
-              <span className="line">
-                <span data-d="4">moments.</span>
-              </span>
             </h1>
-            <p className="sub rv" data-d="5">
+            <p className="sub rv" data-d="4">
               A London firm advising individuals and businesses since 1964.
-              Clear advice, carefully given — and a partner on your matter from
-              the first meeting to the last.
             </p>
             <div className="cta-row rv" data-d="5" style={{ marginTop: 34 }}>
               <a className="btn primary" href="#">
